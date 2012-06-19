@@ -1,0 +1,6 @@
+[submodule "vendor/epy"]
+	path = vendor/epy
+	url = https://github.com/gabrielelanaro/emacs-for-python.git
+[submodule "vendor/haskell-mode"]
+	path = vendor/haskell-mode
+	url = https://github.com/haskell/haskell-mode.git
