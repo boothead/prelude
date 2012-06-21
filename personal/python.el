@@ -1,5 +1,6 @@
 (setq ropemacs-global-prefix "C-c p")
-(load-file "~/dev/emacs/python/epy-init.el")
+(add-to-list 'load-path (concat prelude-vendor-dir "/epy"))
+(load "epy-init.el")
 (epy-setup-ipython)
 (epy-setup-checker "pyflakes %f")
 (setq virtualenv-workon-home "~/dev/ve")
