@@ -26,6 +26,7 @@
 (load-theme 'solarized-dark t)
 
 (prelude-turn-off-whitespace)
+(whitespace-mode -1)
 
 (defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language."
@@ -68,3 +69,13 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ;;   t)
 ;; ;;(window-number-mode 1)
 ;; (window-number-meta-mode 1)
+
+;; Setup simple-rtm
+(add-to-list 'load-path (concat prelude-vendor-dir "/simple-rtm/lisp"))
+(autoload 'simple-rtm-mode "simple-rtm" "Interactive mode for Remember The Milk" t)
+(require 'rtm)
+(defun rtm-get-list-names ()
+  "Get all my list (project) names from RTM"
+  (interactive)
+  (mapcar (lambda (lst)  (cdr (assoc 'name (car (cdr lst)))))
+          (rtm-lists-get-list)))
