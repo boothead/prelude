@@ -25,8 +25,6 @@
 (setq initial-scratch-message "ಠ_ಠ")
 (load-theme 'solarized-dark t)
 
-(prelude-turn-off-whitespace)
-(whitespace-mode -1)
 
 (defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language."
@@ -39,6 +37,7 @@
   ;; keep the whitespace decent all the time
   (add-hook 'before-save-hook 'whitespace-cleanup nil t)
   )
+(add-hook 'prog-mode-hook 'prelude-turn-off-whitespace t)
 
 (defun path-from-shell (sh-cmd)
   "Get the $PATH from a login shell"
