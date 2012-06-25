@@ -43,6 +43,7 @@
 (defun haskell-hook ()
   ;; Use simple indentation.
   (turn-on-haskell-simple-indent)
+  (prelude-turn-off-whitespace)
   (define-key haskell-mode-map (kbd "<return>") 'haskell-simple-indent-newline-same-col)
   (define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
 
