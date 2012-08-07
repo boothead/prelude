@@ -14,3 +14,6 @@ ede-projects.el
 custom.el
 places
 .smex-items
+/.rtm-auth-token
+/ac-comphist.dat
+/bookmarks
