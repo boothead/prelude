@@ -19,6 +19,7 @@
 ;; (add-to-list 'load-path ".")
 ;; Always load via this. If you contribute you should run `make all`
 ;; to regenerate this.
+(add-to-list 'load-path (concat prelude-vendor-dir "/haskell-mode"))
 (load "haskell-site-file")
 
 ;; Customization
@@ -38,6 +39,50 @@
 
 (add-hook 'haskell-mode-hook 'haskell-hook)
 (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
+
+(setq haskell-interactive-mode-eval-mode 'js-mode)
+
+(require 'notify)
+
+(defun haskell-process-run-script (&optional script)
+  "Run a script."
+  (interactive)
+  (let ((process (haskell-process))
+        (script (or script (ido-completing-read "Script: "
+                                                (list "server-restart"
+                                                      "hj-build")))))
+    (haskell-process-queue-command
+     process
+     (haskell-command-make
+      (cons process script)
+      (lambda (state)
+        (haskell-process-send-string (car state)
+                                     (format ":!%s && %s"
+                                             (format "cd %s"
+                                                     (haskell-session-cabal-dir
+
+                                                      (haskell-process-session (car state))))
+                                             (format "%s" (cdr
+                                                                   state)))))
+      nil
+      (lambda (state response)
+        (when (not (string= "" response))
+          (haskell-interactive-mode-echo (haskell-process-session (car state))
+                                         response))
+        (message "OK: %s" (cdr state))
+        (notify (format "*%s*" (haskell-session-name (car state)))
+                (message "OK: %s" (cdr state)) ""))))))
+
+(defun haskell-process-cabal-build-and-restart ()
+  "Build and restart the Cabal project."
+  (interactive)
+  (haskell-process-cabal-build)
+  (haskell-process-run-script "server-restart"))
+
+(defun haskell-process-compile-to-js ()
+  "Compile the current file to JS."
+  (interactive)
+  (haskell-process-run-script (format "dist/build/fay/fay -autorun %s" (buffer-file-name))))
 
 ;; Haskell main editing mode key bindings.
 (defun haskell-hook ()
