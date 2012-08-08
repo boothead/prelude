@@ -15,3 +15,6 @@ custom.el
 places
 .smex-items
 savefile/
+/.rtm-auth-token
+/ac-comphist.dat
+/bookmarks
