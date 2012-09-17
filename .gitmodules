@@ -3,7 +3,7 @@
         url = git@github.com:boothead/emacs-for-python.git
 [submodule "vendor/haskell-mode"]
 	path = vendor/haskell-mode
-	url = https://github.com/haskell/haskell-mode.git
+        url = git@github.com:boothead/haskell-mode.git
 [submodule "vendor/simple-rtm"]
 	path = vendor/simple-rtm
 	url = https://github.com/mbunkus/simple-rtm.git
