@@ -42,7 +42,7 @@
 
 (setq haskell-interactive-mode-eval-mode 'js-mode)
 
-(require 'notify)
+;;(require 'notify)
 
 (defun haskell-process-run-script (&optional script)
   "Run a script."
