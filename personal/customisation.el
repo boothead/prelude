@@ -16,8 +16,8 @@
  ;; If there is more than one, they won't work right.
  )
 
-(set-default-font "Inconsolata-10")
-(setq initial-scratch-message "ಠ_ಠ")
+(set-default-font "Inconsolata-12")
+;;(setq initial-scratch-message "ಠ_ಠ")
 (load-theme 'solarized-dark t)
 
 
