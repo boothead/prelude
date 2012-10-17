@@ -5,11 +5,6 @@
  ;; If there is more than one, they won't work right.
  '(coffee-command "coffee")
  '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" default)))
- '(haskell-notify-p t)
- '(haskell-process-path-cabal-dev "~/.cabal/bin/cabal-dev")
- '(haskell-process-type (quote cabal-dev))
- '(haskell-stylish-on-save t)
- '(haskell-tags-on-save t)
  '(jira-url "http://syn/jira/rpc/xmlrpc")
  '(minimap-dedicated-window t)
  '(minimap-width-fraction 0.15)

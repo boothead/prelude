@@ -25,7 +25,9 @@
 ;; Customization
 (custom-set-variables
  ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
- '(haskell-process-type 'cabal-dev)
+ '(haskell-process-type 'ghci)
+
+ '(haskell-process-path-cabal-dev "~/.cabal/bin/cabal-dev")
 
  ;; Use notify.el (if you have it installed) at the end of running
  ;; Cabal commands or generally things worth notifying.
@@ -35,7 +37,11 @@
  '(haskell-tags-on-save t)
 
  ;; To enable stylish on save.
- '(haskell-stylish-on-save t))
+ '(haskell-stylish-on-save t)
+
+ ;; Enable pretty show
+ '(haskell-interactive-mode-eval-pretty t)
+ )
 
 (add-hook 'haskell-mode-hook 'haskell-hook)
 (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
