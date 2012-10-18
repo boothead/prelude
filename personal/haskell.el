@@ -25,9 +25,10 @@
 ;; Customization
 (custom-set-variables
  ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
- '(haskell-process-type 'ghci)
+ '(haskell-process-type 'ghci
 
  '(haskell-process-path-cabal-dev "~/.cabal/bin/cabal-dev")
+
 
  ;; Use notify.el (if you have it installed) at the end of running
  ;; Cabal commands or generally things worth notifying.
@@ -112,6 +113,9 @@
   (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   ;; Interactively choose the Cabal command to run.
   (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+
+  ;; Set a virthualenv
+  (define-key haskell-mode-map (kbd "C-c v") 'haskell-process-ve)
 
   ;; Get the type and info of the symbol at point, print it in the
   ;; message buffer.

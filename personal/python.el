@@ -10,6 +10,13 @@
 (epy-setup-ipython)
 (epy-setup-checker "pyflakes %f")
 (setq virtualenv-workon-home "~/dev/ve")
+
+(require 'ein)
+(defadvice ein:url-no-cache
+  (around ein:url-no-cache-no (url) activate)
+  "Do not use jQuery-like caching workaround."
+  (setq ad-return-value url))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

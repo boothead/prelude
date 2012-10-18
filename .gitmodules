@@ -7,3 +7,6 @@
 [submodule "vendor/simple-rtm"]
 	path = vendor/simple-rtm
 	url = https://github.com/mbunkus/simple-rtm.git
+[submodule "vendor/org-jira"]
+	path = vendor/org-jira
+	url = git@github.com:solaise/org-jira.git

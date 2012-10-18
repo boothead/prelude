@@ -24,7 +24,7 @@
 (defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language."
   (flyspell-prog-mode)
-  (linum-mode)
+  (linum-mode 1)
   (prelude-local-comment-auto-fill)
   (prelude-turn-off-whitespace)
   (prelude-turn-on-abbrev)
