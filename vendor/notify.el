@@ -34,8 +34,8 @@
 ;;; Code:
 
 (defvar notify-defaults (list :app "Emacs" :icon "emacs" :timeout 5000
-                              :urgency "low"
-                              :category "emacs.message")
+			      :urgency "low"
+			      :category "emacs.message")
   "Notification settings' defaults.
 May be overridden with key-value additional arguments to `notify'.")
 (defvar notify-delay '(0 5 0)
@@ -50,30 +50,30 @@ May be overridden with key-value additional arguments to `notify'.")
 (cond
  ((null notify-method)
   (setq notify-method
-        (cond
+	(cond
         ((executable-find "growlnotify") 'notify-via-growl)
-         ((and (require 'dbus nil t)
-               (dbus-ping :session "org.freedesktop.Notifications"))
-          (defvar notify-id 0 "Current D-Bus notification id.")
-          'notify-via-dbus)
-         ((executable-find "notify-send") 'notify-via-libnotify)
-         (t 'notify-via-message))))
+	 ((and (require 'dbus nil t)
+	       (dbus-ping :session "org.freedesktop.Notifications"))
+	  (defvar notify-id 0 "Current D-Bus notification id.")
+	  'notify-via-dbus)
+	 ((executable-find "notify-send") 'notify-via-libnotify)
+	 (t 'notify-via-message))))
  ((eq notify-method 'notify-via-dbus) ;housekeeping for pre-chosen DBus
   (if (and (require 'dbus nil t)
-           (dbus-ping :session "org.freedesktop.Notifications"))
+	   (dbus-ping :session "org.freedesktop.Notifications"))
       (defvar notify-id 0 "Current D-Bus notification id.")
     (setq notify-method (if (executable-find "notify-send")
-                            'notify-via-libnotify
-                          'notify-via-message))))
+			    'notify-via-libnotify
+			  'notify-via-message))))
  ((and (eq notify-method 'notify-via-libnotify)
        (not (executable-find "notify-send"))) ;housekeeping for pre-chosen libnotify
   (setq notify-method
-        (if (and (require 'dbus nil t)
-                 (dbus-ping :session "org.freedesktop.Notifications"))
-            (progn
-              (defvar notify-id 0 "Current D-Bus notification id.")
-              'notify-via-dbus)
-          'notify-via-message)))
+	(if (and (require 'dbus nil t)
+		 (dbus-ping :session "org.freedesktop.Notifications"))
+	    (progn
+	      (defvar notify-id 0 "Current D-Bus notification id.")
+	      'notify-via-dbus)
+	  'notify-via-message)))
  ((and (eq notify-method 'notify-via-growl)
        (not (executable-find "growlnotify")))
   (setq notify-method 'notify-via-message)))
@@ -81,22 +81,22 @@ May be overridden with key-value additional arguments to `notify'.")
 (defun notify-via-dbus (title body)
   "Send notification with TITLE, BODY `D-Bus'."
   (dbus-call-method :session "org.freedesktop.Notifications"
-                    "/org/freedesktop/Notifications"
-                    "org.freedesktop.Notifications" "Notify"
-                    (get 'notify-defaults :app)
-                    (setq notify-id (+ notify-id 1))
-                    (get 'notify-defaults :icon) title body '(:array)
-                    '(:array :signature "{sv}") ':int32
-                    (get 'notify-defaults :timeout)))
+		    "/org/freedesktop/Notifications"
+		    "org.freedesktop.Notifications" "Notify"
+		    (get 'notify-defaults :app)
+		    (setq notify-id (+ notify-id 1))
+		    (get 'notify-defaults :icon) title body '(:array)
+		    '(:array :signature "{sv}") ':int32
+		    (get 'notify-defaults :timeout)))
 
 (defun notify-via-libnotify (title body)
   "Notify with TITLE, BODY via `libnotify'."
   (call-process "notify-send" nil 0 nil
-                title body "-t"
-                (number-to-string (get 'notify-defaults :timeout))
-                "-i" (get 'notify-defaults :icon)
-                "-u" (get 'notify-defaults :urgency)
-                "-c" (get 'notify-defaults :category)))
+		title body "-t"
+		(number-to-string (get 'notify-defaults :timeout))
+		"-i" (get 'notify-defaults :icon)
+		"-u" (get 'notify-defaults :urgency)
+		"-c" (get 'notify-defaults :category)))
 
 (defun notify-via-message (title body)
   "Notify TITLE, BODY with a simple message."
@@ -128,10 +128,10 @@ May be overridden with key-value additional arguments to `notify'.")
   "Notify TITLE, BODY via `notify-method'.
 ARGS may be amongst :timeout, :icon, :urgency, :app and :category."
   (when (time-less-p notify-delay
-                     (time-since notify-last-notification))
+		     (time-since notify-last-notification))
     (or (eq notify-method 'notify-via-message)
-        (keywords-to-properties 'notify-defaults args
-                                notify-defaults))
+	(keywords-to-properties 'notify-defaults args
+				notify-defaults))
     (setq notify-last-notification (current-time))
     (funcall notify-method title body)))
 
