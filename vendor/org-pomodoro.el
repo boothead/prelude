@@ -41,9 +41,11 @@ end tell"
 ))
 
 (defun org-pomodoro-notify (what message)
+  (interactive)
   (notify
    (cond ((eq what :pomodoro) "Pomodoro completed")
-         ((eq what :break) "Pomodoro break finished"))
+         ((eq what :break) "Pomodoro break finished")
+         ((eq what :cancel) "Pomodoro cancelled"))
    message
    )
 )
@@ -110,6 +112,7 @@ end tell"
   (cancel-timer org-pomodoro-timer)
   (org-pomodoro-set-mode-line nil)
   (setq org-pomodoro-phase :none)
+  (org-pomodoro-notify :cancel "Pomodoro cancelled")
   )
 
 (defun org-pomodoro-heartbeat ()
