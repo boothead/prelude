@@ -20,6 +20,10 @@
 ;;(setq initial-scratch-message "ಠ_ಠ")
 (load-theme 'solarized-dark t)
 
+(global-auto-revert-mode 1)
+(guru-mode -1)
+(global-linum-mode 1)
+
 
 (defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language."
@@ -75,8 +79,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
           (rtm-lists-get-list)))
 
 ;; Setup org-jira
-
-
 (setq jiralib-url "https://solaise.atlassian.net")
 (add-to-list 'load-path (concat prelude-vendor-dir "/org-jira"))
 (require 'org-jira)
