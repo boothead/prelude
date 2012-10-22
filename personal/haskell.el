@@ -25,7 +25,7 @@
 ;; Customization
 (custom-set-variables
  ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
- '(haskell-process-type 'ghci
+ '(haskell-process-type 'ghci)
 
  '(haskell-process-path-cabal-dev "~/.cabal/bin/cabal-dev")
 
