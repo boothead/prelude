@@ -73,3 +73,10 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   (interactive)
   (mapcar (lambda (lst)  (cdr (assoc 'name (car (cdr lst)))))
           (rtm-lists-get-list)))
+
+;; Setup org-jira
+
+
+(setq jiralib-url "https://solaise.atlassian.net")
+(add-to-list 'load-path (concat prelude-vendor-dir "/org-jira"))
+(require 'org-jira)
