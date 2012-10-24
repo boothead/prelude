@@ -41,3 +41,7 @@
 (setq ido-everywhere t)
 (setq ido-max-directory-size 100000)
 (ido-mode (quote both))
+
+; o-blog
+(add-to-list 'load-path (concat prelude-vendor-dir "/o-blog"))
+(require 'o-blog)
