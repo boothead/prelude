@@ -59,6 +59,11 @@ end tell"
           (when v
               (org-pomodoro-growl-register))))
 
+(defcustom org-pomodoro-notifications t
+  "Notify via Growl"
+  :group 'org-pomodoro
+  :type '(boolean))
+
 
 (defvar org-pomodoro-timer nil)
 (defvar org-pomodoro-timer-start 0)
@@ -124,7 +129,7 @@ end tell"
 ;      (message "%s %s" org-pomodoro-phase (org-pomodoro-seconds-elapsed))
       (when (> (org-pomodoro-seconds-elapsed) (* 60 25))
         (message "Pomodoro completed! Time for a break!")
-        (when org-pomodoro-growl-notifications
+        (when org-pomodoro-notifications
           (org-pomodoro-notify :pomodoro "Pomodoro completed! Time for a break!"))
         (org-pomodoro-start :break)
         (run-hooks 'org-pomodoro-done-hook))
@@ -133,7 +138,7 @@ end tell"
     (progn
       (when (> (org-pomodoro-seconds-elapsed) (* 60 5))
         (message "Break is over, ready for another one?")
-        (when org-pomodoro-growl-notifications
+        (when org-pomodoro-notifications
           (org-pomodoro-notify :break "Break is over, ready for another one?"))
         (progn
           (org-pomodoro-kill)
