@@ -24,6 +24,8 @@
 (guru-mode -1)
 (global-linum-mode 1)
 
+(require 'package)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language."

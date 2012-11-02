@@ -10,3 +10,6 @@
 [submodule "vendor/org-jira"]
 	path = vendor/org-jira
 	url = git@github.com:solaise/org-jira.git
+[submodule "vendor/o-blog"]
+	path = vendor/o-blog
+	url = https://github.com/renard/o-blog.git
