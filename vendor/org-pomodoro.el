@@ -7,6 +7,7 @@
 (require 'org)
 (require 'org-timer)
 (require 'notify)
+(require 'powerline)
 
 (defgroup org-pomodoro nil "Org pomodoro customization"
   :tag "Org Pomodoro"
@@ -43,9 +44,12 @@ end tell"
 (defun org-pomodoro-notify (what message)
   (interactive)
   (notify
-   (cond ((eq what :pomodoro) "Pomodoro completed")
-         ((eq what :break) "Pomodoro break finished")
-         ((eq what :cancel) "Pomodoro cancelled"))
+   (format "%s: %s"
+           (cond ((eq what :start) "Pomodoro started")
+                 ((eq what :pomodoro) "Pomodoro completed")
+                 ((eq what :break) "Pomodoro break finished")
+                 ((eq what :cancel) "Pomodoro cancelled"))
+           org-clock-heading)
    message
    )
 )
@@ -60,7 +64,7 @@ end tell"
               (org-pomodoro-growl-register))))
 
 (defcustom org-pomodoro-notifications t
-  "Notify via Growl"
+  "Notify via notify.el"
   :group 'org-pomodoro
   :type '(boolean))
 
@@ -118,6 +122,7 @@ end tell"
   (org-pomodoro-set-mode-line nil)
   (setq org-pomodoro-phase :none)
   (org-pomodoro-notify :cancel "Pomodoro cancelled")
+  (run-hooks 'org-pomodoro-done-hook)
   )
 
 (defun org-pomodoro-heartbeat ()
@@ -154,6 +159,7 @@ end tell"
   (setq org-pomodoro-phase what
         org-pomodoro-timer-start (current-time)
         org-pomodoro-timer (run-with-timer 1 1 'org-pomodoro-heartbeat))
+  (org-pomodoro-notify :start "25 minutes head down... Start work!")
   )
 
 ;;; These names are not so great.
@@ -185,6 +191,48 @@ end tell"
 ;;       (if (not org-timer-last-timer)
 ;;        (org-timer-set-timer "25"))))
 
+(setq-default mode-line-format
+              '("%e"
+                (:eval
+                 (let* ((active (eq (frame-selected-window) (selected-window)))
+                        (face1 (if active 'powerline-active1 'powerline-inactive1))
+                        (face2 (if active 'powerline-active2 'powerline-inactive2))
+                        (lhs (list
+                              (powerline-raw "%*" nil 'l)
+                              (powerline-buffer-size nil 'l)
+                              (powerline-buffer-id nil 'l)
+
+                              (powerline-raw " ")
+                              (powerline-arrow-right nil face1)
+
+                              (powerline-major-mode face1 'l)
+                              (powerline-raw mode-line-process face1 'l)
+
+                              (powerline-narrow face1 'l)
+
+                              (powerline-arrow-right face1 face2)
+
+                              (powerline-vc face2)
+                              ))
+                        (rhs (list
+                              (powerline-raw global-mode-string face2 'r)
+
+                              (powerline-arrow-left face2 face1)
+
+                              (powerline-raw "%4l" face1 'r)
+                              (powerline-raw ":" face1)
+                              (powerline-raw "%3c" face1 'r)
+
+                              (powerline-arrow-left face1 nil)
+                              (powerline-raw " ")
+
+                              (powerline-raw "%6p" nil 'r)
+
+                              (powerline-hud face2 face1))))
+                   (concat
+                    (powerline-render lhs)
+                    (powerline-fill face2 (powerline-width rhs))
+                    (powerline-render rhs))))))
 
 
 

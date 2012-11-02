@@ -7,6 +7,11 @@
 (custom-set-variables
  '(org-directory "~/Dropbox/org")
 )
+
+(setq org-agenda-files
+      '("~/Dropbox/org"
+        "~/Dropbox/RealTimePython/"))
+
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -21,6 +26,10 @@
         ("c" "capture" entry (file+headline "~/Dropbox/org/inbox.org" "Capture")
          "* %^{Title}  :capture:\n\n  Source: %u, %c\n\n  %i"
          :empty-lines 1 )))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "IN-PROGRESS(p)" "|" "DONE(d)")))
+
 
 (setq org-capture-default-template "c")
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
