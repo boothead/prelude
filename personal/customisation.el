@@ -5,7 +5,6 @@
  ;; If there is more than one, they won't work right.
  '(coffee-command "coffee")
  '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" default)))
- '(jira-url "http://syn/jira/rpc/xmlrpc")
  '(minimap-dedicated-window t)
  '(minimap-width-fraction 0.15)
  '(virtualenv-root "~/dev/ve"))
@@ -82,5 +81,5 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 
 ;; Setup org-jira
 (setq jiralib-url "https://solaise.atlassian.net")
-(add-to-list 'load-path (concat prelude-vendor-dir "/org-jira"))
-(require 'org-jira)
+;; (add-to-list 'load-path (concat prelude-vendor-dir "/org-jira"))
+;; (require 'org-jira)
