@@ -142,12 +142,12 @@
     (switch-to-buffer buffer)))
 
 ;;; Clock into project
-(global-set-key [f9] 'work-clockin)
-;;; Clock out of project (done)
-(global-set-key [f10] 'work-clockout)
-;;; Pause project (interrupted)
-(global-set-key [f12] 'work-interrupted) ;; f12 is hardest to mispress
-;;; Resume project
-(global-set-key [f11] 'work-resume)
+;; (global-set-key [f9] 'work-clockin)
+;; ;;; Clock out of project (done)
+;; (global-set-key [f10] 'work-clockout)
+;; ;;; Pause project (interrupted)
+;; (global-set-key [f12] 'work-interrupted) ;; f12 is hardest to mispress
+;; ;;; Resume project
+;; (global-set-key [f11] 'work-resume)
 
 (provide 'worktracker)
