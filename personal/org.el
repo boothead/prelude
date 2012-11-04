@@ -48,6 +48,8 @@
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
+(setq org-stuck-projects (quote ("" nil nil "")))
+
 ;; REFILING
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -166,12 +168,145 @@
                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                 (org-tags-match-list-sublevels nil))))))
 
+(setq org-use-speed-commands t)
+(setq org-speed-commands-user (quote (("0" . ignore)
+                                      ("1" . ignore)
+                                      ("2" . ignore)
+                                      ("3" . ignore)
+                                      ("4" . ignore)
+                                      ("5" . ignore)
+                                      ("6" . ignore)
+                                      ("7" . ignore)
+                                      ("8" . ignore)
+                                      ("9" . ignore)
+
+                                      ("a" . ignore)
+                                      ("d" . ignore)
+                                      ("h" . bh/hide-other)
+                                      ("i" progn
+                                       (forward-char 1)
+                                       (call-interactively 'org-insert-heading-respect-content))
+                                      ("k" . org-kill-note-or-show-branches)
+                                      ("l" . ignore)
+                                      ("m" . ignore)
+                                      ("q" . bh/show-org-agenda)
+                                      ("r" . ignore)
+                                      ("s" . org-save-all-org-buffers)
+                                      ("w" . org-refile)
+                                      ("x" . ignore)
+                                      ("y" . ignore)
+                                      ("z" . org-add-note)
+
+                                      ("A" . ignore)
+                                      ("B" . ignore)
+                                      ("E" . ignore)
+                                      ("F" . bh/restrict-to-file-or-follow)
+                                      ("G" . ignore)
+                                      ("H" . ignore)
+                                      ("J" . org-clock-goto)
+                                      ("K" . ignore)
+                                      ("L" . ignore)
+                                      ("M" . ignore)
+                                      ("N" . bh/narrow-to-subtree)
+                                      ("P" . bh/narrow-to-project)
+                                      ("Q" . ignore)
+                                      ("R" . ignore)
+                                      ("S" . ignore)
+                                      ("T" . bh/org-todo)
+                                      ("U" . bh/narrow-up-one-level)
+                                      ("V" . ignore)
+                                      ("W" . bh/widen)
+                                      ("X" . ignore)
+                                      ("Y" . ignore)
+                                      ("Z" . ignore))))
+
+(defun bh/show-org-agenda ()
+  (interactive)
+  (switch-to-buffer "*Org Agenda*")
+  (delete-other-windows))
+
 ;; o-blog
 (add-to-list 'load-path (concat prelude-vendor-dir "/o-blog"))
 (require 'o-blog)
 
+;; Custom Key Bindings
+(global-set-key (kbd "<f12>") 'org-agenda)
+(global-set-key (kbd "<f5>") 'bh/org-todo)
+(global-set-key (kbd "<S-f5>") 'bh/widen)
+(global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
+(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
+(global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
+(global-set-key (kbd "<f9> b") 'bbdb)
+(global-set-key (kbd "<f9> c") 'calendar)
+(global-set-key (kbd "<f9> f") 'boxquote-insert-file)
+(global-set-key (kbd "<f9> g") 'gnus)
+(global-set-key (kbd "<f9> h") 'bh/hide-other)
+(global-set-key (kbd "<f9> n") 'org-narrow-to-subtree)
+(global-set-key (kbd "<f9> w") 'widen)
+(global-set-key (kbd "<f9> u") 'bh/narrow-up-one-level)
+
+(global-set-key (kbd "<f9> I") 'bh/punch-in)
+(global-set-key (kbd "<f9> O") 'bh/punch-out)
+
+(global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
+
+(global-set-key (kbd "<f9> r") 'boxquote-region)
+(global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
+
+(global-set-key (kbd "<f9> t") 'bh/insert-inactive-timestamp)
+(global-set-key (kbd "<f9> T") 'tabify)
+(global-set-key (kbd "<f9> U") 'untabify)
+
+(global-set-key (kbd "<f9> v") 'visible-mode)
+(global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
+(global-set-key (kbd "C-<f9>") 'previous-buffer)
+(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
+(global-set-key (kbd "C-x n r") 'narrow-to-region)
+(global-set-key (kbd "C-<f10>") 'next-buffer)
+(global-set-key (kbd "<f11>") 'org-clock-goto)
+(global-set-key (kbd "C-<f11>") 'org-clock-in)
+(global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
+(global-set-key (kbd "C-M-r") 'org-capture)
+(global-set-key (kbd "C-c r") 'org-capture)
+
 
 ;; UTILS
+(defun bh/hide-other ()
+  (interactive)
+  (save-excursion
+    (org-back-to-heading 'invisible-ok)
+    (hide-other)
+    (org-cycle)
+    (org-cycle)
+    (org-cycle)))
+
+(defun bh/set-truncate-lines ()
+  "Toggle value of truncate-lines and refresh window display."
+  (interactive)
+  (setq truncate-lines (not truncate-lines))
+  ;; now refresh window display (an idiom from simple.el):
+  (save-excursion
+    (set-window-start (selected-window)
+                      (window-start (selected-window)))))
+
+(defun bh/make-org-scratch ()
+  (interactive)
+  (find-file "/tmp/publish/scratch.org")
+  (gnus-make-directory "/tmp/publish"))
+
+(defun bh/switch-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+;; Remove empty LOGBOOK drawers on clock out
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
   (save-restriction
