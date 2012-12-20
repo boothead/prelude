@@ -13,3 +13,6 @@
 [submodule "vendor/o-blog"]
 	path = vendor/o-blog
 	url = https://github.com/renard/o-blog.git
+[submodule "vendor/web-mode"]
+	path = vendor/web-mode
+	url = https://github.com/fxbois/web-mode.git

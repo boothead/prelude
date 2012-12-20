@@ -88,3 +88,15 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   "Inserts a pound into the buffer"
    (insert "#"))
 (global-set-key (kbd "M-3") '(lambda()(interactive)(insert-pound)))
+
+;; Set up web-mode
+(add-to-list 'load-path (concat prelude-vendor-dir "/web-mode"))
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.jinja2\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'web-mode-hook)
+
