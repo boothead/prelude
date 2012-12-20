@@ -16,6 +16,8 @@
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
 (define-key global-map "\C-cc" 'org-capture)
 
+(setq org-startup-indented t)
+
 ;; GLOBAL BEHAVIOUR
 ;; CAPTURE
 (setq org-capture-templates
