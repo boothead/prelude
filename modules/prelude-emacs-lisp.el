@@ -1,6 +1,6 @@
 ;;; prelude-emacs-lisp.el --- Emacs Prelude: Nice config for Elisp programming.
 ;;
-;; Copyright (c) 2011-2012 Bozhidar Batsov
+;; Copyright © 2011-2013 Bozhidar Batsov
 ;;
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: http://batsov.com/emacs-prelude
@@ -51,7 +51,8 @@
 
 (setq prelude-emacs-lisp-mode-hook 'prelude-emacs-lisp-mode-defaults)
 
-(add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prelude-emacs-lisp-mode-hook)))
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                                  (run-hooks 'prelude-emacs-lisp-mode-hook)))
 
 ;; ielm is an interactive Emacs Lisp shell
 (defun prelude-ielm-mode-defaults ()
