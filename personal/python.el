@@ -16,3 +16,7 @@
 ;;   (around ein:url-no-cache-no (url) activate)
 ;;   "Do not use jQuery-like caching workaround."
 ;;   (setq ad-return-value url))
+
+;; Setup jedi
+(setq jedi:setup-keys t)
+(add-hook 'python-mode-hook 'jedi:setup)

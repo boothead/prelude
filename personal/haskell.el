@@ -38,7 +38,7 @@
  '(haskell-tags-on-save t)
 
  ;; To enable stylish on save.
- '(haskell-stylish-on-save t)
+ '(haskell-stylish-on-save nil)
 
  ;; Enable pretty show
  '(haskell-interactive-mode-eval-pretty t)
@@ -95,7 +95,6 @@
 (defun haskell-hook ()
   ;; Use simple indentation.
   (turn-on-haskell-simple-indent)
-  (prelude-turn-off-whitespace)
   (define-key haskell-mode-map (kbd "<return>") 'haskell-simple-indent-newline-same-col)
   (define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
 

@@ -11,7 +11,7 @@ ERR!     <http://bugs.debian.org/npm>
 ERR! or use
 ERR!     reportbug --attach /home/SOLAISE/bford/.emacs.d/personal/npm-debug.log npm
 ERR! 
-ERR! System Linux 3.2.0-32-generic
+ERR! System Linux 3.2.0-34-generic
 ERR! command "node" "/usr/bin/npm" "completion"
 ERR! cwd /home/SOLAISE/bford/.emacs.d/personal
 ERR! node -v v0.6.12
