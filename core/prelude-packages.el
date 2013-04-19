@@ -81,7 +81,7 @@
     ("\\.feature\\'" feature-mode feature-mode)
     ("\\.groovy\\'" groovy-mode groovy-mode)
     ("\\.haml\\'" haml-mode haml-mode)
-    ("\\.hs\\'" haskell-mode haskell-mode)
+;;    ("\\.hs\\'" haskell-mode haskell-mode)
     ("\\.latex\\'" auctex LaTeX-mode)
     ("\\.less\\'" less-css-mode less-css-mode)
     ("\\.lua\\'" lua-mode lua-mode)

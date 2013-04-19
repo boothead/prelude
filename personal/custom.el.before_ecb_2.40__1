@@ -1,0 +1,48 @@
+(setq org-toodledo-userid "td4fdabae638fd3")
+(setq org-toodledo-password "ro4ya2l")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(coffee-command "coffee")
+ '(coffee-tab-width 2)
+ '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" default)))
+ '(ecb-options-version "2.40")
+ '(haskell-interactive-mode-eval-mode (quote js-mode) t)
+ '(haskell-interactive-mode-eval-pretty t)
+ '(haskell-notify-p t)
+ '(haskell-process-path-cabal-dev "~/.cabal/bin/cabal-dev")
+ '(haskell-process-type (quote ghci))
+ '(haskell-stylish-on-save nil)
+ '(haskell-tags-on-save t)
+ '(jira-url "http://syn/jira/rpc/xmlrpc")
+ '(jiralib-url "https://solaise.atlassian.net/" t)
+ '(less-css-lessc-command "/home/SOLAISE/bford/dev/ve/ticket-manager/src/presentation/node_modules/less/bin/lessc")
+ '(minimap-dedicated-window t)
+ '(minimap-width-fraction 0.15)
+ '(org-agenda-files (quote ("~/Dropbox/org/soliase.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/notes.org" "~/Dropbox/org/tasks.org")))
+ '(org-directory "~/Dropbox/org")
+ '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-drill org-jira org-pomodoro)))
+ '(prelude-guru nil)
+ '(sql-ms-options nil)
+ '(virtualenv-root "~/dev/ve"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(defun toggle-fullscreen ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+  )
+
+;; (if (eq window-system 'x)
+;;     (toggle-fullscreen)
+;;     (set-default-font "Inconsolata-11"))
+
+(setq ispell-program-name "/usr/bin/aspell")
